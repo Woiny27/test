@@ -1,0 +1,31 @@
+[metadata]
+task_id = "hello-world-demo"
+difficulty = "unrated"
+description = "Demo scaffolding task: create a Python hello-world program. Use it to smoke-test a harbor live-trial setup end-to-end (build, agent, verifier); replace codebase, instruction, tests, and solution to author a real task."
+category = "programming"
+tags = ["python", "demo", "scaffolding"]
+
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 3600.0
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+# --- Capture the model patch (agent's diff vs the v0.1.0-init checkpoint) ------------
+# Harbor collects /logs/artifacts AFTER the agent runs but BEFORE the verifier. A collect
+# hook runs in the right window (after the agent, before artifact download); the [[artifacts]]
+# entry downloads the single file to artifacts/patch.diff.
+# `service` = the service's name in docker-compose.yaml
+[[verifier.collect]]
+service = "main"
+command = "mkdir -p /logs/artifacts; git config --global --add safe.directory /app; git -C /app add -A; git -C /app diff v0.1.0-init > /logs/artifacts/patch.diff 2>/dev/null; true"
+
+[[artifacts]]
+source = "/logs/artifacts/patch.diff"
+destination = "patch.diff"
