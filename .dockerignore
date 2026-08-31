@@ -1,0 +1,14 @@
+# Prevent agent from seeing hidden tests and worker outputs
+patches/
+trajectories/
+golden_tests/
+.etalon/
+.mini_swe_config.yaml
+.dockerignore
+*.log
+Dockerfile
+build_docker.sh
+run_docker.sh
+.etalon_dockerfile_contract.py
+prompt.md
+.task_metadata.json

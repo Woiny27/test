@@ -1,0 +1,6 @@
+{
+  "repo": "tobymao/sqlglot",
+  "base_commit": "9a8129b6f2667673f24713f4b49162ebae1f699d",
+  "github_url": "https://github.com/tobymao/sqlglot.git",
+  "docker_repo_url": "https://github.com/tobymao/sqlglot.git"
+}
